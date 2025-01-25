@@ -1,14 +1,13 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
     [SerializeField] private BasicCameraTracker camera;
     [SerializeField] private Transform startPoint;
     [SerializeField] private Transform character;
-
-    [SerializeField] private GameObject AliveAnimator;
 
     public UnityEvent<int> OnFinishGame { get; private set; }
 
@@ -23,16 +22,13 @@ public class Game : MonoBehaviour
 
     private void StartLevel()
     {
-        AliveAnimator.SetActive(true);
-
-        camera.ChangeCameraBounds(-0.5f, 79.5f, 4.7f, 4.7f);
         character.position = startPoint.position;
     }
 
     public void Get2ndChance()
     {
         Debug.Log("You did it!");
-        StartLevel();
+        SceneManager.LoadScene("Win");
     }
 
     public void OnFinishGameBtnClick(int points)

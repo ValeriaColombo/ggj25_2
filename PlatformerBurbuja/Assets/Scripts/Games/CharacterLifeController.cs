@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterLifeController : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class CharacterLifeController : MonoBehaviour
         if (collision.gameObject.tag == "SiTocaSeMuere")
         {
             Debug.Log("Auch!");
-            transform.position = respawnPoint.position;
+            SceneManager.LoadScene("Lost");
+//            transform.position = respawnPoint.position;
         }
     }
 
