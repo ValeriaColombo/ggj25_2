@@ -8,6 +8,8 @@ public class Game : MonoBehaviour
     [SerializeField] private BasicCameraTracker camera;
     [SerializeField] private Transform startPoint;
     [SerializeField] private Transform character;
+    [SerializeField] private string SceneWhenWin = "Win";
+    [SerializeField] private string SceneWhenLost = "Lost";
 
     public UnityEvent<int> OnFinishGame { get; private set; }
 
@@ -28,7 +30,13 @@ public class Game : MonoBehaviour
     public void Get2ndChance()
     {
         Debug.Log("You did it!");
-        SceneManager.LoadScene("Win");
+        SceneManager.LoadScene(SceneWhenWin);
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Ouch!!");
+        SceneManager.LoadScene(SceneWhenLost);
     }
 
     public void OnFinishGameBtnClick(int points)

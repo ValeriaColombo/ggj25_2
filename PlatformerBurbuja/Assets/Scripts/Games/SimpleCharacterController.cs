@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SimpleCharacterController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed = 1;
+    [SerializeField] private Game game;
 
     private Vector2 currentSpeed = Vector2.zero;
 
@@ -75,7 +77,20 @@ public class SimpleCharacterController : MonoBehaviour
             isTouchingWall = true;
         else if (collision.gameObject.tag == "floor")
             isTouchingFloor = true;
+        else if (collision.gameObject.tag == "SiTocaSeMuere")
+        {
+            Debug.Log("Auch!");
+            game.GameOver();
+        }    
     }
 
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "2ndChance")
+        {
+            game.Get2ndChance();
+        }
+    }
+
+
 }
