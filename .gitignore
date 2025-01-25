@@ -1,0 +1,10 @@
+
+/PlatformerBurbuja/.vs
+PlatformerBurbuja/.vsconfig
+*.csproj
+/PlatformerBurbuja/Library
+/PlatformerBurbuja/Logs
+*.sln
+/PlatformerBurbuja/Temp
+/PlatformerBurbuja/UserSettings
+/PlatformerBurbuja/obj
