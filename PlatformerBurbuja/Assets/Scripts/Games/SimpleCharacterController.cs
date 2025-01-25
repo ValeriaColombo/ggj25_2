@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
@@ -10,16 +11,27 @@ public class SimpleCharacterController : MonoBehaviour
     [SerializeField] private float speed = 1;
     [SerializeField] private Game game;
 
+    [SerializeField] private float ScalePerMovement = 0.1f;
+    [SerializeField] private float ScalePerSoap = 0.1f;
+    private float currentScale;
+
     private Vector2 currentSpeed = Vector2.zero;
+
+    private void Start()
+    {
+        currentScale = transform.localScale.x;
+    }
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             currentSpeed.x = speed * Time.fixedDeltaTime;
+            Downsize();
         }
         else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
+            Downsize();
             currentSpeed.x = -speed * Time.fixedDeltaTime;
         }
         else if(Mathf.Abs(currentSpeed.x) < (speed * Time.fixedDeltaTime)/2f)
@@ -46,6 +58,7 @@ public class SimpleCharacterController : MonoBehaviour
 
         if (!isTouchingWall && isTouchingFloor && currentSpeed.y == 0 && Input.GetKeyDown(KeyCode.Space))
         {
+            Downsize();
             currentSpeed.y += speed * Time.fixedDeltaTime * 5;
         }
         else if(!isTouchingWall && currentSpeed.y > 0)
@@ -58,6 +71,17 @@ public class SimpleCharacterController : MonoBehaviour
         }
 
         rb.velocity = currentSpeed;
+    }
+
+    private void Downsize()
+    {
+        currentScale -= ScalePerMovement;
+        transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+
+        if(currentScale <= ScalePerMovement)
+        {
+            game.GameOver();
+        }
     }
 
     public bool isTouchingWall = false;
@@ -89,6 +113,12 @@ public class SimpleCharacterController : MonoBehaviour
         if (collision.tag == "2ndChance")
         {
             game.Get2ndChance();
+        }
+        else if (collision.tag == "jabon")
+        {
+            currentScale += ScalePerSoap;
+            transform.localScale = new Vector3(currentScale, currentScale, currentScale);
+            collision.gameObject.SetActive(false);
         }
     }
 
