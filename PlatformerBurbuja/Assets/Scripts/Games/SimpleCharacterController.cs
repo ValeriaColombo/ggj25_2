@@ -13,6 +13,9 @@ public class SimpleCharacterController : MonoBehaviour
 
     [SerializeField] private float ScalePerMovement = 0.1f;
     [SerializeField] private float ScalePerSoap = 0.1f;
+    [SerializeField] private float jumpForce = 3;
+    [SerializeField] private float wallClimbForce = 3;
+
     private float currentScale;
 
     private Vector2 currentSpeed = Vector2.zero;
@@ -49,7 +52,7 @@ public class SimpleCharacterController : MonoBehaviour
 
         if (isTouchingWall && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)))
         {
-            currentSpeed.y = speed * Time.fixedDeltaTime * 3;
+            currentSpeed.y = speed * Time.fixedDeltaTime * wallClimbForce;
         }
         else if (isTouchingWall)
         {
@@ -59,17 +62,19 @@ public class SimpleCharacterController : MonoBehaviour
         if (!isTouchingWall && isTouchingFloor && currentSpeed.y == 0 && Input.GetKeyDown(KeyCode.Space))
         {
             Downsize();
-            currentSpeed.y += speed * Time.fixedDeltaTime * 5;
+            currentSpeed.y += speed * Time.fixedDeltaTime * jumpForce;
         }
         else if(!isTouchingWall && currentSpeed.y > 0)
         {
-            currentSpeed.y -= speed * Time.fixedDeltaTime / 5;
+            currentSpeed.y -= speed * Time.fixedDeltaTime / (jumpForce*3);
         }
         else if(!isTouchingWall)
         {
             currentSpeed.y = 0;
         }
 
+        currentSpeed.x += currentWindIntensity.x;
+        currentSpeed.y += currentWindIntensity.y;
         rb.velocity = currentSpeed;
     }
 
@@ -120,7 +125,21 @@ public class SimpleCharacterController : MonoBehaviour
             transform.localScale = new Vector3(currentScale, currentScale, currentScale);
             collision.gameObject.SetActive(false);
         }
+        else if (collision.tag == "wind")
+        {
+            currentWindIntensity = collision.gameObject.GetComponent<Wind>().intensity;
+        }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "wind")
+        {
+            currentWindIntensity = Vector2.zero;
+        }
+    }
+
+    private Vector3 currentWindIntensity = Vector3.zero;
 
 
 }

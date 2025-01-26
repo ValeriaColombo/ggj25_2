@@ -20,7 +20,7 @@ public class HomeScreenPresenter : ClassWithContext
         switch (gameId)
         {
             case "game":
-                SceneManager.LoadScene("Game");
+                SceneManager.LoadScene("Level1");
                 break;
         }
     }
