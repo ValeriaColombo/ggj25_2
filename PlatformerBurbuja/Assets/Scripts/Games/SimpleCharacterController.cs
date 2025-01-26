@@ -73,17 +73,17 @@ public class SimpleCharacterController : MonoBehaviour
             currentSpeed.y = 0;
         }
 
-        currentSpeed.x += currentWindIntensity.x;
-        currentSpeed.y += currentWindIntensity.y;
+        currentSpeed.x += currentWindIntensity.x * Time.fixedDeltaTime;
+        currentSpeed.y += currentWindIntensity.y * Time.fixedDeltaTime;
         rb.velocity = currentSpeed;
     }
 
     private void Downsize()
     {
-        currentScale -= ScalePerMovement;
+        currentScale -= ScalePerMovement * Time.fixedDeltaTime;
         transform.localScale = new Vector3(currentScale, currentScale, currentScale);
 
-        if(currentScale <= ScalePerMovement)
+        if(currentScale <= ScalePerMovement * Time.fixedDeltaTime)
         {
             game.GameOver();
         }
