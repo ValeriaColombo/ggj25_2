@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField] private BasicCameraTracker camera;
     [SerializeField] private Transform startPoint;
     [SerializeField] private Transform character;
     [SerializeField] private string SceneWhenWin = "Win";
