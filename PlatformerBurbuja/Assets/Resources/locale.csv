@@ -1,9 +1,13 @@
 TID,ES,EN
-game_title,Jugar,Play
-settings,Configuracion,Settings
+play,Jugar,Play
+settings,Configuración,Settings
 credits,Créditos,Credits
 gameover,Fin del juego,Game Over
 play_again,Jugar de nuevo,Play again
 back_to_home,Volver atras,Back to home
 pause,Pausa,Pause
 resume,Continuar,Resume
+vamos,Vamos!,Let's Go!
+listo,Listo,Ready
+win,Ganaste!!!,A winner is you!
+nombre_juego,De vuelta a la botella,Back to the bottle
